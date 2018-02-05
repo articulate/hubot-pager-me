@@ -1,5 +1,5 @@
 {
-  "name": "hubot-pager-me",
+  "name": "@articulate/hubot-pager-me",
   "description": "PagerDuty integration for Hubot ",
   "version": "2.1.6",
   "author": "Josh Nichols <technicalpickles@github.com>",
