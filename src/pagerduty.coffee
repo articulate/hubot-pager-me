@@ -1,5 +1,5 @@
 HttpClient = require 'scoped-http-client'
-Scrolls    = require('../../../lib/scrolls').context({script: 'pagerduty'})
+#Scrolls    = require('../../../lib/scrolls').context({script: 'pagerduty'})
 request    = require 'request'
 qs         = require 'query-string'
 
@@ -43,15 +43,15 @@ module.exports =
     if pagerDutyServices? && path.match /\/incidents/
       query['service_ids'] = pagerDutyServices.split ","
 
-    Scrolls.log('info', {at: 'get/request', path: path, query: query})
+    #Scrolls.log('info', {at: 'get/request', path: path, query: query})
 
     request.get {uri: @url(path, query), json: true, headers: @headers()}, (err, res, body) ->
       if err?
-        Scrolls.log('info', {at: 'get/error', path: path, query: query, error: err})
+        #Scrolls.log('info', {at: 'get/error', path: path, query: query, error: err})
         cb(err)
         return
 
-      Scrolls.log('info', {at: 'get/response', path: path, query: query, status: res.statusCode, body: body})
+      #Scrolls.log('info', {at: 'get/response', path: path, query: query, status: res.statusCode, body: body})
 
       unless res.statusCode is 200
         cb(new PagerDutyError("#{res.statusCode} back from #{path}"))
@@ -64,15 +64,15 @@ module.exports =
       console.log "Would have PUT #{path}: #{inspect data}"
       return
 
-    Scrolls.log('info', {at: 'put/request', path: path, body: data})
+    #Scrolls.log('info', {at: 'put/request', path: path, body: data})
 
     request.put {uri: @url(path), json: true, headers: @headers(customHeaders), body: data}, (err, res, body) ->
       if err?
-        Scrolls.log('info', {at: 'put/error', path: path, error: err})
+        #Scrolls.log('info', {at: 'put/error', path: path, error: err})
         cb(err)
         return
 
-      Scrolls.log('info', {at: 'put/response', path: path, status: res.statusCode, body: body})
+      #Scrolls.log('info', {at: 'put/response', path: path, status: res.statusCode, body: body})
 
       unless res.statusCode is 200
         cb(new PagerDutyError("#{res.statusCode} back from #{path}"))
@@ -85,15 +85,15 @@ module.exports =
       console.log "Would have POST #{path}: #{inspect data}"
       return  
     
-    Scrolls.log('info', {at: 'post/request', path: path, body: data})
+    #Scrolls.log('info', {at: 'post/request', path: path, body: data})
 
     request.post {uri: @url(path), json: true, headers: @headers(customHeaders), body: data}, (err, res, body) ->
       if err?
-        Scrolls.log('info', {at: 'post/error', path: path, error: err})
+        #Scrolls.log('info', {at: 'post/error', path: path, error: err})
         cb(err)
         return
 
-      Scrolls.log('info', {at: 'post/response', path: path, status: res.statusCode, body: body})
+      #Scrolls.log('info', {at: 'post/response', path: path, status: res.statusCode, body: body})
 
       unless res.statusCode is 201
         cb(new PagerDutyError("#{res.statusCode} back from #{path}"))
@@ -106,15 +106,15 @@ module.exports =
       console.log "Would have DELETE #{path}"
       return
 
-    Scrolls.log('info', {at: 'delete/request', path: path, query: query})
+    #Scrolls.log('info', {at: 'delete/request', path: path, query: query})
 
     request.delete {uri: @url(path), headers: @headers()}, (err, res) ->
       if err?
-        Scrolls.log('info', {at: 'delete/error', path: path, query: query, error: err})
+        #Scrolls.log('info', {at: 'delete/error', path: path, query: query, error: err})
         cb(err)
         return
 
-      Scrolls.log('info', {at: 'delete/response', path: path, status: res.statusCode})
+      #Scrolls.log('info', {at: 'delete/response', path: path, status: res.statusCode})
 
       unless res.statusCode is 200 or res.statusCode is 204
         cb(new PagerDutyError("#{res.statusCode} back from #{path}"), false)
